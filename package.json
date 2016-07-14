@@ -1,0 +1,19 @@
+{
+  "name": "react-relative-portal",
+  "version": "1.0.0",
+  "description": "React component for place dropdowns outside overflow: hidden; elements",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smartprogress/react-relative-portal.git"
+  },
+  "author": "Alex Lunyov <isuntc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smartprogress/react-relative-portal/issues"
+  },
+  "homepage": "https://github.com/smartprogress/react-relative-portal#readme"
+}
