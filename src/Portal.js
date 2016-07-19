@@ -32,7 +32,6 @@ export default class Portal extends React.Component {
   }
 
   componentWillUpdate({ onOutClick, ...props }) { // eslint-disable-line
-    console.log('Portal', props);
     this.element = ReactDOM.render(
       <div {...props} />,
       this.node
