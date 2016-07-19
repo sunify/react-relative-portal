@@ -28,19 +28,21 @@ export default class DropdownLink extends React.Component {
   }
 
   render() {
-    <div>
-      <button onClick={this.handleToggle}>Dropdown toggle</button>
-      <RelativePortal
-        component="div"
-        left={0}
-        top={10}
-        onOutClick={this.handleHide}
-      >
-        <div style={{ padding: 10, backgroundColor: '#FFF' }}>
-          Dropdown content
-        </div>
-      </RelativePortal>
-    </div>
+    return (
+      <div>
+        <button onClick={this.handleToggle}>Dropdown toggle</button>
+        <RelativePortal
+          component="div"
+          left={0}
+          top={10}
+          onOutClick={this.handleHide}
+        >
+          <div style={{ padding: 10, backgroundColor: '#FFF' }}>
+            Dropdown content
+          </div>
+        </RelativePortal>
+      </div>
+    );
   }
 
 }
