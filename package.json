@@ -8,6 +8,11 @@
     "LICENSE",
     "README.md"
   ],
+  "keywords": [
+    "react",
+    "portal",
+    "react-portal"
+  ],
   "scripts": {
     "build": "npm run clean && babel src/Portal.js > dist/Portal.js && babel src/RelativePortal.js > dist/RelativePortal.js",
     "clean": "rm -Rf dist && mkdir dist",
@@ -34,14 +39,11 @@
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.10.3",
     "eslint-plugin-jsx-a11y": "^1.5.5",
-    "eslint-plugin-react": "^5.2.2",
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "eslint-plugin-react": "^5.2.2"
   },
   "dependencies": {
     "debounce": "^1.0.0",
     "exenv": "^1.2.1",
-    "fbjs": "^0.8.3",
     "lodash": "^4.13.1",
     "uuid": "^2.0.2"
   },
