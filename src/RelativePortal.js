@@ -26,6 +26,7 @@ export default class RelativePortal extends React.Component {
     left: PropTypes.number,
     top: PropTypes.number,
     children: PropTypes.any,
+    onOutClick: PropTypes.func,
     component: PropTypes.string.isRequired,
   };
 

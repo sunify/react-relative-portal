@@ -49,9 +49,24 @@ export default class DropdownLink extends React.Component {
 ```
 
 ## Props
-* **top (number, default 0)** — set top offset from current position
-* **right (number)** — set right offset from current position. If undefined, portal positons from left.
-* **left (number, default 0)** — set left offset from current position. If `right` prop is set, `left` ignores.
-* **onOutClick (function)** — fire when user click outside portal element
-* **component(any, default 'span')** — component class or dom tagName
-* **children (any)** — portal content
+```es6
+export default class RelativePortal extends React.Component {
+  static propTypes = {
+    right: PropTypes.number, // set right offset from current position. If undefined portal positons from left
+    left: PropTypes.number, // set left offset from current position. If `right` prop is set, `left` ignores
+    top: PropTypes.number, // set top offset from current position
+    children: PropTypes.any.isRequired, // portal content
+    onOutClick: PropTypes.func, // called when user click outside portal element
+    component: PropTypes.string.isRequired, // dom tagName
+  };
+
+  static defaultProps = {
+    left: 0,
+    top: 0,
+    component: 'span',
+  };
+
+  ...
+
+}
+```
