@@ -2,8 +2,19 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { canUseDOM } from 'exenv';
 
-function getRID(node) {
-  return (node && node.dataset && node.dataset.reactid) || '';
+function isDescendant(parent, child) {
+  if (parent.isEqualNode(child)) {
+    return true;
+  }
+
+  let node = child.parentNode;
+  while (node !== null) {
+    if (node.isEqualNode(parent)) {
+      return true;
+    }
+    node = node.parentNode;
+  }
+  return false;
 }
 
 export default class Portal extends React.Component {
@@ -20,9 +31,7 @@ export default class Portal extends React.Component {
       document.body.appendChild(this.node);
 
       this.handleOutClick = (e) => {
-        const rid = getRID(ReactDOM.findDOMNode(this.element));
-        const eRid = getRID(e.target);
-        if (eRid.indexOf(rid) !== 0 && this.props.onOutClick) {
+        if (!isDescendant(ReactDOM.findDOMNode(this.element), e.target)) {
           this.props.onOutClick();
         }
       };
