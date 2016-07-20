@@ -43,8 +43,7 @@
   },
   "dependencies": {
     "debounce": "^1.0.0",
-    "exenv": "^1.2.1",
-    "uuid": "^2.0.2"
+    "exenv": "^1.2.1"
   },
   "peerDependencies": {
     "react": ">=0.14.0",

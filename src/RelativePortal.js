@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import uuid from 'uuid';
 import debounce from 'debounce';
 import { canUseDOM } from 'exenv';
 import Portal from './Portal';
@@ -14,8 +13,10 @@ if (canUseDOM) {
   document.body.addEventListener('mousewheel', debounce(fireListeners, 100, true));
 }
 
+let listenerIdCounter = 0;
 function subscribe(fn) {
-  const id = uuid.v1();
+  listenerIdCounter += 1;
+  const id = listenerIdCounter;
   listeners[id] = fn;
   return () => delete listeners[id];
 }
