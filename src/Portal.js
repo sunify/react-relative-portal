@@ -30,9 +30,11 @@ export default class Portal extends React.Component {
       this.node = document.createElement('div');
       document.body.appendChild(this.node);
 
-      this.handleOutClick = (e) => {
-        if (!isDescendant(ReactDOM.findDOMNode(this.element), e.target)) {
-          this.props.onOutClick();
+      this.handleOutClick = e => {
+        if (typeof this.props.onOutClick === 'function') {
+          if (!isDescendant(ReactDOM.findDOMNode(this.element), e.target)) {
+            this.props.onOutClick();
+          }
         }
       };
 

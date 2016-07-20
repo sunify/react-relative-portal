@@ -11,6 +11,7 @@ function fireListeners() {
 
 if (canUseDOM) {
   document.body.addEventListener('mousewheel', debounce(fireListeners, 100, true));
+  window.addEventListener('resize', debounce(fireListeners, 50, true));
 }
 
 let listenerIdCounter = 0;
