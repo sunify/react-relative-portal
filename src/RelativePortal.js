@@ -71,7 +71,7 @@ export default class RelativePortal extends React.Component {
 
   render() {
     const { component: Comp, top, left, right, ...props } = this.props;
-    const verticalPosition = right !== undefined ? { right: this.state.right + right }
+    const horizontalPosition = right !== undefined ? { right: this.state.right + right }
                                                  : { left: this.state.left + left };
 
     return (
@@ -85,7 +85,7 @@ export default class RelativePortal extends React.Component {
             style={{
               position: 'absolute',
               top: this.state.top + top,
-              ...verticalPosition,
+              ...horizontalPosition,
             }}
           >
             {this.props.children}
