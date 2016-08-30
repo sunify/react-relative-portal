@@ -29,6 +29,7 @@ export default class RelativePortal extends React.Component {
     top: PropTypes.number,
     children: PropTypes.any,
     onOutClick: PropTypes.func,
+    fullWidth: PropTypes.bool,
     component: PropTypes.string.isRequired,
   };
 
@@ -70,9 +71,14 @@ export default class RelativePortal extends React.Component {
   }
 
   render() {
-    const { component: Comp, top, left, right, ...props } = this.props;
-    const horizontalPosition = right !== undefined ? { right: this.state.right + right }
-                                                 : { left: this.state.left + left };
+    const { component: Comp, top, left, right, fullWidth, ...props } = this.props;
+
+    const fromLeftOrRight = right !== undefined ?
+      { right: this.state.right + right } :
+      { left: this.state.left + left };
+
+    const horizontalPosition = fullWidth ?
+      { right: this.state.right + right, left: this.state.left + left } : fromLeftOrRight;
 
     return (
       <Comp
