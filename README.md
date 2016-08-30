@@ -60,6 +60,7 @@ export default class RelativePortal extends React.Component {
   static propTypes = {
     right: PropTypes.number, // set right offset from current position. If undefined portal positons from left
     left: PropTypes.number, // set left offset from current position. If `right` prop is set, `left` ignores
+    fullWidth: PropTypes.bool, // enables you to set both left and right portal positions
     top: PropTypes.number, // set top offset from current position
     children: PropTypes.any.isRequired, // portal content
     onOutClick: PropTypes.func, // called when user click outside portal element

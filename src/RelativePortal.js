@@ -26,10 +26,10 @@ export default class RelativePortal extends React.Component {
   static propTypes = {
     right: PropTypes.number,
     left: PropTypes.number,
+    fullWidth: PropTypes.bool,
     top: PropTypes.number,
     children: PropTypes.any,
     onOutClick: PropTypes.func,
-    fullWidth: PropTypes.bool,
     component: PropTypes.string.isRequired,
   };
 
