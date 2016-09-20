@@ -2,21 +2,6 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { canUseDOM } from 'exenv';
 
-function isDescendant(parent, child) {
-  if (parent.isEqualNode(child)) {
-    return true;
-  }
-
-  let node = child.parentNode;
-  while (node !== null) {
-    if (node.isEqualNode(parent)) {
-      return true;
-    }
-    node = node.parentNode;
-  }
-  return false;
-}
-
 export default class Portal extends React.Component {
 
   static propTypes = {
@@ -32,7 +17,8 @@ export default class Portal extends React.Component {
 
       this.handleOutClick = e => {
         if (typeof this.props.onOutClick === 'function') {
-          if (!isDescendant(ReactDOM.findDOMNode(this.element), e.target)) {
+          const root = ReactDOM.findDOMNode(this.element);
+          if (!e.path.some(node => node.isEqualNode && node.isEqualNode(root))) {
             this.props.onOutClick();
           }
         }
