@@ -2,6 +2,20 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { canUseDOM } from 'exenv';
 
+function eventPath(e) {
+  if (e.path) {
+    return e.path;
+  }
+
+  const path = [];
+  let node = e.target;
+  while (!document.body.isEqualNode(node)) {
+    path.push(node);
+    node = node.parentNode;
+  }
+  return path;
+}
+
 export default class Portal extends React.Component {
 
   static propTypes = {
@@ -18,7 +32,7 @@ export default class Portal extends React.Component {
       this.handleOutClick = e => {
         if (typeof this.props.onOutClick === 'function') {
           const root = ReactDOM.findDOMNode(this.element);
-          if (!e.path.some(node => node.isEqualNode && node.isEqualNode(root))) {
+          if (!eventPath(e).some(node => node.isEqualNode && node.isEqualNode(root))) {
             this.props.onOutClick();
           }
         }
