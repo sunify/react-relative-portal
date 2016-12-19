@@ -29,7 +29,8 @@ export default class Portal extends React.Component {
   }
 
   componentWillUpdate({ onOutClick, ...props }) { // eslint-disable-line
-    this.element = ReactDOM.render(
+    this.element = ReactDOM.unstable_renderSubtreeIntoContainer(
+      this,
       <div {...props} />,
       this.node
     );
