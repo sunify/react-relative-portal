@@ -2,7 +2,7 @@
 React component for place dropdown-like components outside overflow: hidden; sections
 
 ## Installation
-`npm instal react-relative-portal --save`
+`npm install react-relative-portal --save`
 
 ## Example
 ```es6
