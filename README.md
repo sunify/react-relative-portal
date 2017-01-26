@@ -30,10 +30,19 @@ export default class DropdownLink extends React.Component {
   }
   
   componentWillUnmount() {
+    // Prevent the asynchronous `setState` call after unmount.
     clearTimeout(this._setShowAsyncTimer);
   }
   
+  /**
+   * Changes the dropdown show/hide state asynchronously.
+   *
+   * Need to change the dropdown state asynchronously,
+   * otherwise the dropdown gets immediately closed
+   * during the dropdown toggle's `onClick` which propagates to `onOutClick`.
+   */
   _setShowAsync(show) {
+    // Prevent multiple asynchronous `setState` calls, jsut the latest has to happen.
     clearTimeout(this._setShowAsyncTimer);
     this._setShowAsyncTimer = setTimeout(() => {
       this.setState({ show: show });
