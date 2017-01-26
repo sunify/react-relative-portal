@@ -18,13 +18,26 @@ export default class DropdownLink extends React.Component {
       show: false,
     };
 
-    this.handleToggle = () => {
-      this.setState({ show: !this.state.show });
+    this._setShowAsyncTimer = null;
+
+    this._handleShow = () => {
+      this._setShowAsync(true);
     };
 
-    this.handleHide = () => {
-      this.setState({ show: false });
+    this._handleHide = () => {
+      this._setShowAsync(false);
     };
+  }
+  
+  componentWillUnmount() {
+    clearTimeout(this._setShowAsyncTimer);
+  }
+  
+  _setShowAsync(show) {
+    clearTimeout(this._setShowAsyncTimer);
+    this._setShowAsyncTimer = setTimeout(() => {
+      this.setState({ show: show });
+    }, 0);
   }
 
   render() {
@@ -32,14 +45,14 @@ export default class DropdownLink extends React.Component {
 
     return (
       <div>
-        <button onClick={this.handleToggle}>
+        <button onClick={show ? this._handleHide : this._handleShow}>
           Dropdown toggle
         </button>
         <RelativePortal
           component="div"
           left={0}
           top={10}
-          onOutClick={show ? this.handleHide : null}
+          onOutClick={show ? this._handleHide : null}
         >
           {show &&
             <div style={{ padding: 10, backgroundColor: '#FFF' }}>
