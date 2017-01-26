@@ -39,7 +39,7 @@ export default class DropdownLink extends React.Component {
           component="div"
           left={0}
           top={10}
-          onOutClick={this.handleHide}
+          onOutClick={show ? this.handleHide : null}
         >
           {show &&
             <div style={{ padding: 10, backgroundColor: '#FFF' }}>
