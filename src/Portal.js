@@ -15,12 +15,37 @@ export default class Portal extends React.Component {
       this.node = document.createElement('div');
       document.body.appendChild(this.node);
 
-      this.handleOutClick = e => {
-        if (typeof this.props.onOutClick === 'function') {
-          const root = ReactDOM.findDOMNode(this.element);
-          if (!root.contains(e.target)) {
-            this.props.onOutClick();
+      this.root = null;
+      this.handleRootRef = (root) => {
+        if (root !== this.root) {
+          if (this.root) {
+            this.root.removeEventListener('click', this.handleInClick);
           }
+          if (root) {
+            root.addEventListener('click', this.handleInClick);
+          }
+        }
+        this.root = root;
+      };
+
+      // The previous implementation triggered `onOutClick` after a click in the `Portal` content
+      // if it gets re-rendered during that click. It assumed that if the clicked element
+      // is not found in the root element via `root.contains(e.target)`, it's outside.
+      // But if after re-render the clicked element gets removed from the DOM, so it cannot be found
+      // in the root element. Instead we capture and flag the click event before it bubbles up
+      // to the `document` to be handled by `handleOutClick`.
+      this.isInClick = false;
+      this.handleInClick = () => {
+        this.isInClick = true;
+      };
+
+      this.handleOutClick = () => {
+        const isOutClick = !this.isInClick;
+        this.isInClick = false;
+
+        const { onOutClick } = this.props;
+        if (isOutClick && typeof onOutClick === 'function') {
+          onOutClick();
         }
       };
 
@@ -28,24 +53,23 @@ export default class Portal extends React.Component {
     }
   }
 
-  componentWillUpdate({ onOutClick, ...props }) { // eslint-disable-line
-    this.element = ReactDOM.unstable_renderSubtreeIntoContainer(
+  componentWillUpdate({ onOutClick, ...props }) {  // eslint-disable-line no-unused-vars
+    // It's recommended to use `ref` callbacks instead of `findDOMNode`. https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-find-dom-node.md
+    ReactDOM.unstable_renderSubtreeIntoContainer(
       this,
-      <div {...props} />,
+      <div {...props} ref={this.handleRootRef} />,
       this.node
     );
   }
 
   componentWillUnmount() {
     if (canUseDOM) {
+      // `this.handleRootRef` won't be called with `null`, so cleanup here.
+      if (this.root) {
+        this.root.removeEventListener('click', this.handleInClick);
+      }
       document.removeEventListener('click', this.handleOutClick);
       document.body.removeChild(this.node);
-    }
-  }
-
-  handleOutClick() {
-    if (this.props.onOutClick) {
-      this.props.onOutClick();
     }
   }
 
