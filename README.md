@@ -2,7 +2,7 @@
 React component for place dropdown-like components outside overflow: hidden; sections
 
 ## Installation
-`npm instal react-relative-portal --save`
+`npm install react-relative-portal --save`
 
 ## Example
 ```es6
@@ -18,13 +18,35 @@ export default class DropdownLink extends React.Component {
       show: false,
     };
 
-    this.handleToggle = () => {
-      this.setState({ show: !this.state.show });
+    this._setShowAsyncTimer = null;
+
+    this._handleShow = () => {
+      this._setShowAsync(true);
     };
 
-    this.handleHide = () => {
-      this.setState({ show: false });
+    this._handleHide = () => {
+      this._setShowAsync(false);
     };
+  }
+  
+  componentWillUnmount() {
+    // Prevent the asynchronous `setState` call after unmount.
+    clearTimeout(this._setShowAsyncTimer);
+  }
+  
+  /**
+   * Changes the dropdown show/hide state asynchronously.
+   *
+   * Need to change the dropdown state asynchronously,
+   * otherwise the dropdown gets immediately closed
+   * during the dropdown toggle's `onClick` which propagates to `onOutClick`.
+   */
+  _setShowAsync(show) {
+    // Prevent multiple asynchronous `setState` calls, jsut the latest has to happen.
+    clearTimeout(this._setShowAsyncTimer);
+    this._setShowAsyncTimer = setTimeout(() => {
+      this.setState({ show: show });
+    }, 0);
   }
 
   render() {
@@ -32,14 +54,14 @@ export default class DropdownLink extends React.Component {
 
     return (
       <div>
-        <button onClick={this.handleToggle}>
+        <button onClick={show ? this._handleHide : this._handleShow}>
           Dropdown toggle
         </button>
         <RelativePortal
           component="div"
           left={0}
           top={10}
-          onOutClick={this.handleHide}
+          onOutClick={show ? this._handleHide : null}
         >
           {show &&
             <div style={{ padding: 10, backgroundColor: '#FFF' }}>
