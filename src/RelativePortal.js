@@ -9,6 +9,17 @@ function fireListeners() {
   Object.keys(listeners).forEach(key => listeners[key]());
 }
 
+function getPageOffset() {
+  return {
+    x: (window.pageXOffset !== undefined)
+      ? window.pageXOffset
+      : (document.documentElement || document.body.parentNode || document.body).scrollLeft,
+    y: (window.pageYOffset !== undefined)
+      ? window.pageYOffset
+      : (document.documentElement || document.body.parentNode || document.body).scrollTop,
+  }
+}
+
 if (canUseDOM) {
   document.body.addEventListener('mousewheel', debounce(fireListeners, 100, true));
   window.addEventListener('resize', debounce(fireListeners, 50, true));
@@ -49,9 +60,10 @@ export default class RelativePortal extends React.Component {
     this.handleScroll = () => {
       if (this.element) {
         const rect = this.element.getBoundingClientRect();
-        const top = window.scrollY + rect.top;
-        const right = window.innerWidth - rect.right + window.scrollX;
-        const left = window.scrollX + rect.left;
+        const pageOffset = getPageOffset();
+        const top = pageOffset.y + rect.top;
+        const right = window.innerWidth - rect.right + pageOffset.x;
+        const left = pageOffset.x + rect.left;
 
         if (top !== this.state.top || left !== this.state.left || right !== this.state.right) {
           this.setState({ left, top, right });
