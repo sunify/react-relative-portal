@@ -25,6 +25,10 @@ function initDOMListener() {
   window.addEventListener('resize', debounce(fireListeners, 50, true));
 }
 
+export function updateScroll() {
+  fireListeners();
+}
+
 if (canUseDOM) {
   if (document.body) {
     initDOMListener();
