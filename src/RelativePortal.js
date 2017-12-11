@@ -20,9 +20,17 @@ function getPageOffset() {
   }
 }
 
-if (canUseDOM) {
+function initDOMListener() {
   document.body.addEventListener('mousewheel', debounce(fireListeners, 100, true));
   window.addEventListener('resize', debounce(fireListeners, 50, true));
+}
+
+if (canUseDOM) {
+  if (document.body) {
+    initDOMListener();
+  } else {
+    document.addEventListener('DOMContentLoaded', initDOMListener);
+  }
 }
 
 let listenerIdCounter = 0;
