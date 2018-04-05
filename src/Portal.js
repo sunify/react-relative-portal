@@ -40,13 +40,13 @@ export default class Portal extends React.Component {
         this.isInClick = true;
       };
 
-      this.handleOutClick = () => {
+      this.handleOutClick = (e) => {
         const isOutClick = !this.isInClick;
         this.isInClick = false;
 
         const { onOutClick } = this.props;
         if (isOutClick && typeof onOutClick === 'function') {
-          onOutClick();
+          onOutClick(e);
         }
       };
 
