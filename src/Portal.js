@@ -50,7 +50,7 @@ export default class Portal extends React.Component {
         }
       };
 
-      document.addEventListener('click', this.handleOutClick);
+      document.addEventListener('click', this.handleOutClick, true);
     }
   }
 
