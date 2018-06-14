@@ -48,8 +48,10 @@ export default class Portal extends React.Component {
   }
 
   render() {
+    const { onOutClick, ...props } = this.props;
+    
     return ReactDOM.createPortal(
-      <div {...this.props} ref={this.handleRootRef} />,
+      <div {...props} ref={this.handleRootRef} />,
       this.node,
     );
   }
