@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'debounce';
+import throttle from 'lodash.throttle';
 import { canUseDOM } from 'exenv';
 import Portal from './Portal';
 
@@ -22,8 +22,14 @@ function getPageOffset() {
 }
 
 function initDOMListener() {
-  document.body.addEventListener('mousewheel', debounce(fireListeners, 100, true));
-  window.addEventListener('resize', debounce(fireListeners, 50, true));
+  document.body.addEventListener('mousewheel', throttle(fireListeners, 100, {
+    leading: true,
+    trailing: true,
+  }));
+  window.addEventListener('resize', throttle(fireListeners, 50, {
+    leading: true,
+    trailing: true,
+  }));
 }
 
 if (canUseDOM) {
