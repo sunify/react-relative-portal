@@ -15,12 +15,12 @@
     "react-portal"
   ],
   "scripts": {
-    "build": "npm run clean && babel src/Portal.js > dist/Portal.js && babel src/RelativePortal.js > dist/RelativePortal.js",
+    "build": "yarn clean && babel src/Portal.js > dist/Portal.js && babel src/RelativePortal.js > dist/RelativePortal.js",
     "clean": "rm -Rf dist && mkdir dist",
     "start-demo": "parcel --out-dir=demo/dist demo/index.html --open",
     "build-demo": "parcel build --out-dir=demo/dist --public-url='.' demo/index.html",
     "test": "exit 0",
-    "prepublish": "npm run build"
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
