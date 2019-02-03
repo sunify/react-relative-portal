@@ -19,7 +19,7 @@
     "clean": "rm -Rf dist && mkdir dist",
     "start-demo": "parcel --out-dir=demo/dist demo/index.html --open",
     "build-demo": "parcel build --out-dir=demo/dist --public-url='.' demo/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "exit 0",
     "prepublish": "npm run build"
   },
   "repository": {
