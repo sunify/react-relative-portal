@@ -1,6 +1,6 @@
 {
   "name": "react-relative-portal",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "React component for place dropdowns outside overflow: hidden; elements",
   "main": "dist/RelativePortal.js",
   "files": [
