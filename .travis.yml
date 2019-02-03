@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '10'
+
+before_deploy:
+  - npm run build-demo
+
+deploy:
+  provider: pages
+  local-dir: demo/dist
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  on:
+    branch: master
