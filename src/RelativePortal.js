@@ -22,7 +22,7 @@ function getPageOffset() {
 }
 
 function initDOMListener() {
-  document.body.addEventListener('mousewheel', throttle(fireListeners, 100, {
+  document.body.addEventListener('wheel', throttle(fireListeners, 100, {
     leading: true,
     trailing: true,
   }));
