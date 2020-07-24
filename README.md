@@ -87,6 +87,7 @@ export default class RelativePortal extends React.Component {
     children: PropTypes.any.isRequired, // portal content
     onOutClick: PropTypes.func, // called when user click outside portal element
     component: PropTypes.string.isRequired, // dom tagName
+    componentClass: PropTypes.string, // dom class for tagName
   };
 
   static defaultProps = {
