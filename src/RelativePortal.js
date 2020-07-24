@@ -57,6 +57,7 @@ export default class RelativePortal extends React.Component {
     children: PropTypes.any,
     onOutClick: PropTypes.func,
     component: PropTypes.string.isRequired,
+    componentClass: PropTypes.string,
   };
 
   static defaultProps = {
@@ -98,7 +99,7 @@ export default class RelativePortal extends React.Component {
   }
 
   render() {
-    const { component: Comp, top, left, right, fullWidth, ...props } = this.props;
+    const { component: Comp, top, left, right, fullWidth, componentClass, ...props } = this.props;
 
     const fromLeftOrRight = right !== undefined ?
       { right: this.state.right + right } :
@@ -109,6 +110,7 @@ export default class RelativePortal extends React.Component {
 
     return (
       <Comp
+        className={componentClass}
         ref={element => {
           this.element = element;
         }}
